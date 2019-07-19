@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.item.dao.AddressTownMapper">
+  <resultMap id="BaseResultMap" type="cn.item.bean.AddressTown">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code_town" jdbcType="CHAR" property="codeTown" />
+    <result column="name_town" jdbcType="VARCHAR" property="nameTown" />
+    <result column="cityCode" jdbcType="CHAR" property="citycode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code_town, name_town, cityCode
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from address_town
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from address_town
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.item.bean.AddressTown">
+    insert into address_town (id, code_town, name_town, 
+      cityCode)
+    values (#{id,jdbcType=INTEGER}, #{codeTown,jdbcType=CHAR}, #{nameTown,jdbcType=VARCHAR}, 
+      #{citycode,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.item.bean.AddressTown">
+    insert into address_town
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="codeTown != null">
+        code_town,
+      </if>
+      <if test="nameTown != null">
+        name_town,
+      </if>
+      <if test="citycode != null">
+        cityCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="codeTown != null">
+        #{codeTown,jdbcType=CHAR},
+      </if>
+      <if test="nameTown != null">
+        #{nameTown,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        #{citycode,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.item.bean.AddressTown">
+    update address_town
+    <set>
+      <if test="codeTown != null">
+        code_town = #{codeTown,jdbcType=CHAR},
+      </if>
+      <if test="nameTown != null">
+        name_town = #{nameTown,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        cityCode = #{citycode,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.item.bean.AddressTown">
+    update address_town
+    set code_town = #{codeTown,jdbcType=CHAR},
+      name_town = #{nameTown,jdbcType=VARCHAR},
+      cityCode = #{citycode,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.item.dao.RolesMapper">
+  <resultMap id="BaseResultMap" type="cn.item.bean.Roles">
+    <id column="rid" jdbcType="INTEGER" property="rid" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="chrole" jdbcType="VARCHAR" property="chrole" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rid, role, chrole
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from roles
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from roles
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.item.bean.Roles">
+    insert into roles (rid, role, chrole
+      )
+    values (#{rid,jdbcType=INTEGER}, #{role,jdbcType=VARCHAR}, #{chrole,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.item.bean.Roles">
+    insert into roles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        rid,
+      </if>
+      <if test="role != null">
+        role,
+      </if>
+      <if test="chrole != null">
+        chrole,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="chrole != null">
+        #{chrole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.item.bean.Roles">
+    update roles
+    <set>
+      <if test="role != null">
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="chrole != null">
+        chrole = #{chrole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.item.bean.Roles">
+    update roles
+    set role = #{role,jdbcType=VARCHAR},
+      chrole = #{chrole,jdbcType=VARCHAR}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

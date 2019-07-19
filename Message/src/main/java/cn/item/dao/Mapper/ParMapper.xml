@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.item.dao.ParMapper">
+  <resultMap id="BaseResultMap" type="cn.item.bean.Par">
+    <result column="breed_id" jdbcType="INTEGER" property="breedId" />
+    <result column="breed_name" jdbcType="VARCHAR" property="breedName" />
+    <result column="toxin_id" jdbcType="INTEGER" property="toxinId" />
+    <result column="toxin_name" jdbcType="VARCHAR" property="toxinName" />
+    <result column="par" jdbcType="REAL" property="par" />
+  </resultMap>
+  <insert id="insert" parameterType="cn.item.bean.Par">
+    insert into par (breed_id, breed_name, toxin_id, 
+      toxin_name, par)
+    values (#{breedId,jdbcType=INTEGER}, #{breedName,jdbcType=VARCHAR}, #{toxinId,jdbcType=INTEGER}, 
+      #{toxinName,jdbcType=VARCHAR}, #{par,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.item.bean.Par">
+    insert into par
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="breedId != null">
+        breed_id,
+      </if>
+      <if test="breedName != null">
+        breed_name,
+      </if>
+      <if test="toxinId != null">
+        toxin_id,
+      </if>
+      <if test="toxinName != null">
+        toxin_name,
+      </if>
+      <if test="par != null">
+        par,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="breedId != null">
+        #{breedId,jdbcType=INTEGER},
+      </if>
+      <if test="breedName != null">
+        #{breedName,jdbcType=VARCHAR},
+      </if>
+      <if test="toxinId != null">
+        #{toxinId,jdbcType=INTEGER},
+      </if>
+      <if test="toxinName != null">
+        #{toxinName,jdbcType=VARCHAR},
+      </if>
+      <if test="par != null">
+        #{par,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+</mapper>

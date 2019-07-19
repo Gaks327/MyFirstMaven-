@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!--扫描@controller注解 -->
+	<mvc:annotation-driven>
+	<!--配置消息转换器 -->
+		<mvc:message-converters>
+			<!-- 配置编码格式 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+			<!--@Restcontroller 是  @Controller和 @ResponseBody的结合体。
+			可以将后台返回的java对象转换为Json字符串，但日期转换时会出现问题，故使用此类可以解决 -->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+    <!-- 启动自动扫描 -->
+    <context:component-scan base-package="cn.item.*" />
+
+    <!--配置静态加载 -->
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/jsp/" mapping="/jsp/**" />
+
+	<!--拦截器配置-->	
+	<context:component-scan base-package="cn.item.web"></context:component-scan>
+ 	<!--调用拦截器 -->
+	<mvc:interceptors>
+		<bean id="MyHandler" class="cn.item.util.MyHandlerInterceptor" />
+	</mvc:interceptors>
+
+    <!-- 配置视图解析器，可以显式设置，也可以不设置，不设置会依据SpringMVC的默认设置 -->
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <!-- 注册MVC注解驱动 -->
+    <mvc:annotation-driven />
+    
+</beans>
