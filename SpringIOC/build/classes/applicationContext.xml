@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	">
+<!--<bean class="所要创建的类路径" id = "代表唯一标识" >
+			出现property标签就意味着需要为当前的bin工厂赋值(id需要和ref的意义相同，在 表述同一对象时应该相等，一般在两个bean中)
+		<property  name="在类中创建的其他类的的对象名" ref= "要引入的bean的唯一标识"></property>
+			属于属性注入，属性植入需要对象的set方法
+	</bean>-->
+ 
+ 
+<!-- 	<bean class="bean.User" id="user"/>
+		<bean class="dao.impl.UserDaoImpl" id="qdao"/>
+		<bean class="service.impl.UserServiceImpl" id="service">
+			<property name="dao" ref="qdao"></property>
+		</bean>
+		<bean class="web.UserController" id="web">
+			<property name="ser" ref="service"></property>对usercontroller这个类中的属性进行值得注入 
+		</bean> -->
+		
+	
+<!--<constructor-arg index="代表构造函数中参数列表的属性值位置" ref="qdao"/>-->
+<!--<property name="aa" value="代表属性默认值"/>	 -->
+
+
+	<bean class="bean.User" id="user"/>
+	<bean class="dao.impl.UserDaoImpl" id="qdao"/>
+	
+	<bean class="service.impl.UserServiceImpl" id="service">
+		<constructor-arg index="0" ref="qdao"/>
+	</bean>
+	
+	<bean class="web.UserController" id="web">
+		<constructor-arg index="0" ref="service"/>
+		<constructor-arg index="1" ref="user"/>
+<!-- 	<constructor-arg name="a"  value="111"/> -->
+	</bean>
+	
+	<bean class="bean.User" id="user1">
+		<property name="aa" value="张三"/>
+		<property name="v" value="12"/>
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</beans>
+
+
+
+
+

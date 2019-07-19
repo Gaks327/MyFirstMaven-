@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+	default-autowire="constructor">
+
+    <bean class="dao.impl.UserDaoImpl2" id="qdao"/>
+	
+	<bean class="service.impl.UserServiceImpl2" id="service"></bean>
+	
+	<bean class="web.UserController2" id="web"></bean>
+	
+    <bean class="util.AopDemo" id="myaop"/>
+    
+    <bean class="util.MyAop2" id="aop"/>
+    
+    <aop:config>
+    	<aop:pointcut expression="(* service.impl.*.*(..))" id="aaa"/>
+    	<aop:aspect ref="myaop">
+    		<aop:before method="aa" pointcut-ref="aaa"/>
+    		<aop:after-returning method="bb" pointcut-ref="aaa"/>
+    		<aop:around method="cc" pointcut-ref="aaa"/>
+    		<aop:after method="dd" pointcut-ref="aaa"/>
+    		<aop:after-throwing method="ee" pointcut-ref="aaa"/>
+    		<aop:after-throwing method="ee1" pointcut-ref="aaa1" />
+    	</aop:aspect>
+    </aop:config>
+	<!-- <aop:config>
+		被切入的方法的表达式
+		<aop:pointcut expression="execution(* service.impl.*.*(..))" id="aaa" />
+		切 入的方法所在的类
+		<aop:aspect ref="myaop">增强类的对象
+			aop:before 前置增强,在目标方法执行前执行
+			 	method指定的是增强类中的增强方法的名字
+			 	pointcut-ref表示被切入的方法的id
+			<aop:before method="aa" pointcut-ref="aaa" />
+			<aop:after-returning method="bb" pointcut-ref="aaa" />
+			<aop:around method="cc" pointcut-ref="aaa" />
+			<aop:after method="dd" pointcut-ref="aaa" />
+			<aop:after-throwing method="ee" pointcut-ref="aaa" />
+		</aop:aspect>
+	</aop:config>
+
+	<aop:config>
+		被切入的方法的表达式
+		<aop:pointcut expression="execution(* service.impl.*.*(..))" id="aaa1" />
+		切入的方法所在的增强类  类中的方法均为增强方法 
+		advice-ref	表示增强类的id
+		pointcut-ref  表示被切入的方法的id
+		<aop:advisor advice-ref="aop" pointcut-ref="aaa1" />
+	</aop:config> -->
+	<aop:config>
+		<aop:pointcut expression="execution(* service.impl.*.*(..))" id="aaa1"/>
+		<aop:advisor advice-ref="aop" pointcut-ref="aaa1"/>
+		<aop:advisor advice-ref="aop" pointcut-ref="aaa1"/>
+	</aop:config>
+	 
+	
+	
+	
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
